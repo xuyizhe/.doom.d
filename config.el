@@ -18,9 +18,11 @@
 
 (setq doom-theme 'doom-one)
 
+(setq display-line-numbers-type t)
+
 (setq org-directory "~/org/")
 
-(setq display-line-numbers-type t)
+(setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
 (use-package! wakatime-mode
   :init
@@ -63,8 +65,10 @@
           "--arrow-parens" "always")))
 
 (after! dap-mode
-  (setq dap-cpptools-debug-program `("~/.vscode/extensions/ms-vscode.cpptools-1.1.0/debugAdapters/OpenDebugAD7"))
-  (require 'dap-cpptools))
+  (let ((dap-cpptools-path "~/.vscode/extensions/ms-vscode.cpptools-1.1.0/debugAdapters/OpenDebugAD7"))
+    (when (file-exists-p dap-cpptools-path)
+      (setq dap-cpptools-debug-program `(dap-cpptools-path))
+      (require 'dap-cpptools))))
 
 (after! youdao-dictionary
   (setq url-automatic-caching t)
@@ -72,9 +76,8 @@
 
 (after! racer
   (setq racer-rust-src-path
-      (let* ((sysroot (string-trim
-                       (shell-command-to-string "rustc --print sysroot")))
-             (lib-path (concat sysroot "/lib/rustlib/src/rust/library"))
-              (src-path (concat sysroot "/lib/rustlib/src/rust/src")))
-        (or (when (file-exists-p lib-path) lib-path)
-            (when (file-exists-p src-path) src-path)))))
+        (let* ((sysroot (string-trim (shell-command-to-string "rustc --print sysroot")))
+               (lib-path (concat sysroot "/lib/rustlib/src/rust/library"))
+               (src-path (concat sysroot "/lib/rustlib/src/rust/src")))
+          (or (when (file-exists-p lib-path) lib-path)
+              (when (file-exists-p src-path) src-path)))))
