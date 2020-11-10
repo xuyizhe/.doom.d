@@ -22,6 +22,10 @@
 
 (setq display-line-numbers-type t)
 
+(use-package! wakatime-mode
+  :init
+  (global-wakatime-mode))
+
 ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
 (use-package! xah-fly-keys
