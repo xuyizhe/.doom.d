@@ -1,0 +1,3 @@
+#+TITLE: .doom.d
+
+Previous version: [[https://github.com/xuyizhe/.spacemacs.d][xuyizhe/.spacemacs.d]]
