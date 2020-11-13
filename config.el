@@ -65,10 +65,44 @@
           "--arrow-parens" "always")))
 
 (after! dap-mode
-  (let ((dap-cpptools-path "~/.vscode/extensions/ms-vscode.cpptools-1.1.0/debugAdapters/OpenDebugAD7"))
-    (when (file-exists-p dap-cpptools-path)
-      (setq dap-cpptools-debug-program `(dap-cpptools-path))
-      (require 'dap-cpptools))))
+  (let (($path "~/.vscode/extensions/ms-vscode.cpptools-1.1.1"))
+    (require 'dap-utils)
+    (setq dap-cpptools-debug-path (expand-file-name "github/cpptools" dap-utils-extension-path))
+    (setq dap-cpptools-debug-program
+          `(,(concat (if (file-exists-p $path) $path
+                       dap-cpptools-debug-path)
+                     (if (file-exists-p $path) ""
+                       "/extension")
+                     (if (eq system-type 'windows-nt) "/debugAdapters/bin/OpenDebugAD7.exe"
+                       "/debugAdapters/OpenDebugAD7"))))
+    (setq dap-cpptools-download-url "https://github.com/microsoft/vscode-cpptools/releases/download/1.1.1/cpptools-osx.vsix")
+    (defun dap-cpptools-setup (&optional forced)
+      "With prefix, FORCED to redownload the extension."
+      (interactive "P")
+      (unless (and (not forced) (file-exists-p dap-cpptools-debug-path))
+        (dap-utils--get-extension dap-cpptools-download-url dap-cpptools-debug-path)
+        (let* ((adapter-binary (cl-first dap-cpptools-debug-program))
+               (mono (f-join (f-parent adapter-binary) "mono.osx"))
+               (lldb (f-join (f-parent adapter-binary) "lldb-mi/bin/lldb-mi")))
+          (mapc
+           (lambda (x) (when (f-exists? x) (set-file-modes x #o0755)))
+           (list adapter-binary mono lldb)))
+        (message "%s: Downloading done!" "dap-cpptools")))
+    (defun dap-cpptools--populate-args (conf)
+      (-> conf
+          (dap--put-if-absent :dap-server-path dap-cpptools-debug-program)
+          (dap--put-if-absent :request "launch")
+          (dap--put-if-absent :type "cppdbg")
+          (dap--put-if-absent :environment [])))
+    (dap-register-debug-provider "cppdbg" #'dap-cpptools--populate-args)
+    (dap-register-debug-template
+     "cpptools::Run Configuration"
+     (list :type "cppdbg"
+           :request "launch"
+           :name "cpptools::Run Configuration"
+           :MIMode "lldb"
+           :program "${workspaceFolder}/ replace with your binary"
+           :cwd "${workspaceFolder}"))))
 
 (after! youdao-dictionary
   (setq url-automatic-caching t)
