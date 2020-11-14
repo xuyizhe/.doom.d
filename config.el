@@ -3,6 +3,23 @@
 (setq user-full-name "xuyizhe"
       user-mail-address "barrenbass@gmail.com")
 
+(setq doom-theme 'doom-one)
+
+(setq display-line-numbers-type t)
+
+(setq org-directory "~/org/")
+
+(setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
+
+(add-hook 'emacs-startup-hook 'toggle-frame-maximized)
+
+(add-to-list '+lookup-provider-url-alist '("🍺 Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
+(add-to-list '+lookup-provider-url-alist '("👻 Zhihu" "https://www.zhihu.com/search?type=content&q=%s"))
+
+(setq-default TeX-engine 'xetex)
+(setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
+(add-to-list 'exec-path "/Library/TeX/texbin")
+
 ;; (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
 ;;                          ("melpa" . "http://elpa.emacs-china.org/melpa/")
 ;;                          ("org" . "http://elpa.emacs-china.org/org/")))
@@ -14,21 +31,9 @@
 ;;                          ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
 ;; (package-initialize)
 
-(add-hook 'emacs-startup-hook 'toggle-frame-maximized)
-
-(setq doom-theme 'doom-one)
-
-(setq display-line-numbers-type t)
-
-(setq org-directory "~/org/")
-
-(setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
-
 (use-package! wakatime-mode
   :init
   (global-wakatime-mode))
-
-;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 
 (use-package! xah-fly-keys
   :init

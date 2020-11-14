@@ -8,6 +8,9 @@ main() {
 	install_rust
 	install_web
 	install_solidity
+	install_latex
+	install_org
+	install_lookup
 	install_youdao
 	install_wakatime
 	sync_doom
@@ -75,6 +78,19 @@ install_web() {
 install_solidity() {
 	echo "Installing dependencies for solidity..."
 	npm install -g solc solium
+}
+
+intsall_latex() {
+	brew cask install mactex
+}
+
+install_org() {
+	brew install sqlite
+}
+
+install_lookup() {
+	brew install ripgrep
+	# brew install wordnet
 }
 
 install_youdao() {
