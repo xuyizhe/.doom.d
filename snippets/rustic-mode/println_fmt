@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: println!_fmt
+# key: pf
+# key: pf
+# condition: t
+# --
+println!("{:?}", ${1:`%`});
+$0

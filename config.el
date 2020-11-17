@@ -20,17 +20,6 @@
 (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
 (add-to-list 'exec-path "/Library/TeX/texbin")
 
-;; (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-;;                          ("melpa" . "http://elpa.emacs-china.org/melpa/")
-;;                          ("org" . "http://elpa.emacs-china.org/org/")))
-;; (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-;;                          ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-;;                          ("org" . "http://mirrors.ustc.edu.cn/elpa/org/")))
-;; (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-;;                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-;;                          ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
-;; (package-initialize)
-
 (use-package! wakatime-mode
   :init
   (global-wakatime-mode))
@@ -69,7 +58,9 @@
           "--single-quote" "true"
           "--arrow-parens" "always")))
 
-(after! dap-mode
+(use-package! dap-mode
+  :when (and (featurep! :tools debugger +lsp) (featurep! :lang rust +lsp))
+  :config
   (let (($path "~/.vscode/extensions/ms-vscode.cpptools-1.1.1"))
     (require 'dap-utils)
     (setq dap-cpptools-debug-path (expand-file-name "github/cpptools" dap-utils-extension-path))

@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: template_zh
+# uuid: tzh
+# key: tzh
+# condition: t
+# --
+% !TEX program = xelatex
+
+\documentclass{ctexart}
+
+\usepackage[${1:a4paper}, `%`$2]{geometry}
+% \usepackage[hidelinks]{hyperref}
+% \usepackage{titlesec}
+
+% \setmainfont[Script=English]{}
+\setCJKmainfont{${3:STSong}}
+
+\begin{document}
+% \pagenumbering{gobble}
+
+`%`$0
+\end{document}

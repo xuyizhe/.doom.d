@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: format_hex
+# uuid: fh
+# key: fh
+# condition: t
+# --
+format!("{:02x?}", ${1:bytes});$0

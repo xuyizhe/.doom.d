@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rule
+# uuid: rl
+# key: rl
+# condition: t
+# --
+\rule{${1:width}}{${2:thickness}}$0

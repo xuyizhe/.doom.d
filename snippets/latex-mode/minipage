@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: minipage
+# uuid: mp
+# key: mp
+# condition: t
+# --
+\begin{minipage}[${1:posiition}]{${2:size}}
+`%`$0
+\end{minipage}
