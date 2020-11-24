@@ -7,7 +7,9 @@
 
 (setq display-line-numbers-type t)
 
-(setq org-directory "~/org/")
+(setq org-directory "~/org/"
+      org-agenda-files '("~/org/gtd")
+      org-noter-notes-search-path '("~/org/notes/"))
 
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
@@ -27,22 +29,23 @@
 (use-package! xah-fly-keys
   :init
   (setq xah-fly-use-control-key nil)
+  (add-hook 'yas-before-expand-snippet-hook 'xah-fly-insert-mode-activate)
   :config
   (xah-fly-keys-set-layout "qwerty")
-  (define-key xah-fly-command-map (kbd "C-. l d") #'lsp-ui-peek-find-definitions)
-  (define-key xah-fly-command-map (kbd "C-. l r") #'lsp-ui-peek-find-references)
-  (define-key xah-fly-command-map (kbd "C-. y y") #'youdao-dictionary-search-at-point-posframe)
-  (define-key xah-fly-command-map (kbd "C-. y v") #'youdao-dictionary-play-voice-at-point)
-  (define-key xah-fly-command-map (kbd "C-. y i") #'youdao-dictionary-search-from-input)
-  (define-key xah-fly-command-map (kbd "C-. d d") #'dap-debug)
-  (define-key xah-fly-command-map (kbd "C-. d c") #'dap-continue)
-  (define-key xah-fly-command-map (kbd "C-. d i") #'dap-step-in)
-  (define-key xah-fly-command-map (kbd "C-. d o") #'dap-step-out)
-  (define-key xah-fly-command-map (kbd "C-. d r") #'dap-debug-restart)
-  (define-key xah-fly-command-map (kbd "C-. d s") #'dap-stop-thread)
-  (define-key xah-fly-command-map (kbd "C-. d k") #'dap-delete-session)
-  (define-key xah-fly-command-map (kbd "C-. d w") #'dap-ui-show-many-windows)
-  (define-key xah-fly-command-map (kbd "C-. d t") #'dap-breakpoint-toggle)
+  (define-key xah-fly-shared-map (kbd "C-. l d") #'lsp-ui-peek-find-definitions)
+  (define-key xah-fly-shared-map (kbd "C-. l r") #'lsp-ui-peek-find-references)
+  (define-key xah-fly-shared-map (kbd "C-. y y") #'youdao-dictionary-search-at-point-posframe)
+  (define-key xah-fly-shared-map (kbd "C-. y v") #'youdao-dictionary-play-voice-at-point)
+  (define-key xah-fly-shared-map (kbd "C-. y i") #'youdao-dictionary-search-from-input)
+  (define-key xah-fly-shared-map (kbd "C-. d d") #'dap-debug)
+  (define-key xah-fly-shared-map (kbd "C-. d c") #'dap-continue)
+  (define-key xah-fly-shared-map (kbd "C-. d i") #'dap-step-in)
+  (define-key xah-fly-shared-map (kbd "C-. d o") #'dap-step-out)
+  (define-key xah-fly-shared-map (kbd "C-. d r") #'dap-debug-restart)
+  (define-key xah-fly-shared-map (kbd "C-. d s") #'dap-stop-thread)
+  (define-key xah-fly-shared-map (kbd "C-. d k") #'dap-delete-session)
+  (define-key xah-fly-shared-map (kbd "C-. d w") #'dap-ui-show-many-windows)
+  (define-key xah-fly-shared-map (kbd "C-. d t") #'dap-breakpoint-toggle)
   (xah-fly-keys 1))
 
 (after! web-mode

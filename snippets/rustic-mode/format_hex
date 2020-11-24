@@ -4,4 +4,4 @@
 # key: fh
 # condition: t
 # --
-format!("{:02x?}", ${1:bytes});$0
+format!("{:02x?}", $0);
