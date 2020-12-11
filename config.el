@@ -3,7 +3,7 @@
 (setq user-full-name "xuyizhe"
       user-mail-address "barrenbass@gmail.com")
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-one-light)
 
 (setq display-line-numbers-type t)
 
@@ -14,6 +14,8 @@
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
 (add-hook 'emacs-startup-hook 'toggle-frame-maximized)
+
+(global-visual-line-mode t)
 
 (add-to-list '+lookup-provider-url-alist '("🍺 Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
 (add-to-list '+lookup-provider-url-alist '("👻 Zhihu" "https://www.zhihu.com/search?type=content&q=%s"))
@@ -49,10 +51,32 @@
   (xah-fly-keys 1))
 
 (after! web-mode
-  (setq web-mode-script-padding 0)
-  (setq web-mode-style-padding 0))
+  (setq web-mode-script-padding 2)
+  (setq web-mode-style-padding 2)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2))
+
+(after! css-mode
+  (setq css-indent-offset 2))
+
+(after! js2-mode
+  (setq js2-basic-offset 2))
+
+(use-package! pug-mode
+  :mode "\\.tag\\'"
+  :config
+  (setq pug-tab-width 2))
+
+(use-package! elm-mode
+  :when (featurep! :lang elixir)
+  :config
+  (setq elm-indent-offset 2))
 
 (use-package! prettier-js
+  :when (featurep! :editor format +prettier-force)
+  :defer t
   :hook ((web-mode css-mode json-mode js2-mode typescript-mode) . prettier-js-mode)
   :config
   (setq prettier-js-show-errors "echo")

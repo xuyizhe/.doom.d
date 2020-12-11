@@ -64,6 +64,7 @@ install_rust() {
 
 install_web() {
 	echo "Installing dependencies for web..."
+	brew install tidy-html5
 	npm install -g \
 		stylelint \
 		prettier \
@@ -71,13 +72,17 @@ install_web() {
 		eslint \
 		typescript \
 		tslint \
+		vscode-html-languageservice \
+		vscode-css-languageservice \
 		typescript-language-server \
-		vls
+		vls \
+		svelte-language-server \
+		prettier-plugin-svelte
 }
 
 install_solidity() {
 	echo "Installing dependencies for solidity..."
-	npm install -g solc solium
+	npm install -g solc solium prettier-plugin-solidity
 }
 
 intsall_latex() {

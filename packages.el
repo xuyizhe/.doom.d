@@ -6,7 +6,8 @@
 (package! stylus-mode :disable t)
 
 (package! xah-fly-keys)
-(package! prettier-js)
+(when (featurep! :editor format +prettier-force)
+  (package! prettier-js))
 (package! youdao-dictionary)
 (when (file-exists-p "~/.wakatime.cfg")
   (package! wakatime-mode))
