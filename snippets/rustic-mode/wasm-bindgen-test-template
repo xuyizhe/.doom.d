@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: wasm-bindgen-test-template
+# key: wbtt
+# key: wbtt
+# condition: t
+# --
+#![cfg(target_arch = "wasm32")]
+
+extern crate wasm_bindgen_test;
+use wasm_bindgen_test::*;
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+$0

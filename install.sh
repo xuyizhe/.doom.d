@@ -28,11 +28,8 @@ install_node() {
 
 install_sh() {
 	echo "Installing dependencies for shell..."
-	# lint
 	brew install shellcheck
-	# format
 	brew install shfmt
-	# lsp
 	npm install -g bash-language-server
 }
 
@@ -43,7 +40,6 @@ install_json() {
 
 install_rust() {
 	echo "Installing dependencies for rust..."
-	# rustup
 	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 	echo 'export PATH="$HOME/.cargo/bin:$PATH"' >>~/.zshrc
 	rustup toolchain add nightly
@@ -60,6 +56,7 @@ install_rust() {
 	rustup component add clippy
 	# format
 	rustup component add rustfmt
+	npm i -g prettier-plugin-toml
 }
 
 install_web() {
