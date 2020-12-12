@@ -51,12 +51,16 @@
   (xah-fly-keys 1))
 
 (after! web-mode
-  (setq web-mode-script-padding 2)
-  (setq web-mode-style-padding 2)
+  (when (featurep! :lang web +tty)
+    (setq web-mode-enable-auto-closing t
+          web-mode-enable-auto-pairing t))
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
-  (setq web-mode-attr-indent-offset 2))
+  (setq web-mode-script-padding 2)
+  (setq web-mode-style-padding 2)
+  (setq web-mode-enable-current-element-highlight t)
+  (setq web-mode-enable-css-colorization t))
 
 (after! css-mode
   (setq css-indent-offset 2))
@@ -64,13 +68,16 @@
 (after! js2-mode
   (setq js2-basic-offset 2))
 
+(after! typescript-mode
+  (setq typescript-indent-level 2))
+
 (use-package! pug-mode
   :mode "\\.tag\\'"
   :config
   (setq pug-tab-width 2))
 
 (use-package! elm-mode
-  :when (featurep! :lang elixir)
+  :when (featurep! :lang elm)
   :config
   (setq elm-indent-offset 2))
 
@@ -100,7 +107,6 @@
                        "/debugAdapters/OpenDebugAD7"))))
     (setq dap-cpptools-download-url "https://github.com/microsoft/vscode-cpptools/releases/download/1.1.1/cpptools-osx.vsix")
     (defun dap-cpptools-setup (&optional forced)
-      "With prefix, FORCED to redownload the extension."
       (interactive "P")
       (unless (and (not forced) (file-exists-p dap-cpptools-debug-path))
         (dap-utils--get-extension dap-cpptools-download-url dap-cpptools-debug-path)
