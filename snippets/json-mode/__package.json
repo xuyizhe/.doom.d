@@ -1,0 +1,31 @@
+{
+  "name": "${1:package-name}",
+  "description": "${2:description}",
+  "private": "true",
+  "version": "1.0.0",
+  "author": "`user-full-name` <`user-mail-address`>",
+  "license": "MIT",
+  "keywords": [],
+  "workspaces": ["packages/*"],
+  "main": "${3:dist/index.js}",
+  "types": "${4:dist/index.d.ts}",
+  "module": "${5:dist/es/index.js}",
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "${6:public}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyizhe/${7:package-name}.git",
+    "directory": ""
+  },
+  "bugs": {
+    "url": "https://github.com/xuyizhe/${8:package-name}/issues"
+  },
+  "homepage": "https://github.com/xuyizhe/${9:package-name}#readme",
+  "scripts": {
+    $0
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

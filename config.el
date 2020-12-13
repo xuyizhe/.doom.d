@@ -1,11 +1,12 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (setq user-full-name "xuyizhe"
-      user-mail-address "barrenbass@gmail.com")
-
-(setq doom-theme 'doom-one-light)
-
-(setq display-line-numbers-type t)
+      user-mail-address "barrenbass@gmail.com"
+      display-line-numbers-type nil
+      doom-theme 'doom-one-light
+      company-idle-delay nil
+      lsp-ui-sideline-enable nil
+      lsp-enable-symbol-highlighting nil)
 
 (setq org-directory "~/org/"
       org-agenda-files '("~/org/gtd")
@@ -13,18 +14,27 @@
 
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
-(add-hook 'emacs-startup-hook 'toggle-frame-maximized)
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
-(global-visual-line-mode t)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-(add-to-list '+lookup-provider-url-alist '("🍺 Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
-(add-to-list '+lookup-provider-url-alist '("👻 Zhihu" "https://www.zhihu.com/search?type=content&q=%s"))
+(when (featurep! :tools lookup)
+  (add-to-list '+lookup-provider-url-alist '("🍺 Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
+  (add-to-list '+lookup-provider-url-alist '("👻 Zhihu" "https://www.zhihu.com/search?type=content&q=%s")))
 
-(setq-default TeX-engine 'xetex)
-(setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
-(add-to-list 'exec-path "/Library/TeX/texbin")
+(when (featurep! :editor file-templates)
+  (set-file-template! "/tsconfig\\.json$" :trigger "__tsconfig.json" :mode 'json-mode)
+  (set-file-template! "/lerna\\.json$" :trigger "__lerna.json" :mode 'json-mode)
+  (set-file-template! "/webdriver\\.json$" :trigger "__webdriver.json" :mode 'json-mode))
+
+(when (featurep! :lang latex)
+  (setq-default TeX-engine 'xetex)
+  (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
+  (add-to-list 'exec-path "/Library/TeX/texbin"))
 
 (use-package! wakatime-mode
+  :when (file-exists-p "~/.wakatime.cfg")
   :init
   (global-wakatime-mode))
 

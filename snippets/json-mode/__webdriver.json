@@ -1,9 +1,3 @@
-# -*- mode: snippet -*-
-# name: wasm-bindgen-webdriver
-# key: webdriver
-# key: webdriver
-# condition: t
-# --
 {
   "moz:firefoxOptions": {
     "prefs": {
