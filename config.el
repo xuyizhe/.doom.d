@@ -20,8 +20,12 @@
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 (when (featurep! :tools lookup)
-  (add-to-list '+lookup-provider-url-alist '("🍺 Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
-  (add-to-list '+lookup-provider-url-alist '("👻 Zhihu" "https://www.zhihu.com/search?type=content&q=%s")))
+  (add-to-list '+lookup-provider-url-alist '("Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
+  (add-to-list '+lookup-provider-url-alist '("Reddit" "https://www.reddit.com/search/?q=%s"))
+  (add-to-list '+lookup-provider-url-alist '("Crates.io" "https://crates.io/search?q=%s"))
+  (add-to-list '+lookup-provider-url-alist '("MDN" "https://developer.mozilla.org/en-US/search?q=%s"))
+  (add-to-list '+lookup-provider-url-alist '("NPM" "https://www.npmjs.com/search?q=%s"))
+  (add-to-list '+lookup-provider-url-alist '("Zhihu" "https://www.zhihu.com/search?type=content&q=%s")))
 
 (when (featurep! :editor file-templates)
   (set-file-template! "/tsconfig\\.json$" :trigger "__tsconfig.json" :mode 'json-mode)
