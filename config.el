@@ -37,6 +37,9 @@
   (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
   (add-to-list 'exec-path "/Library/TeX/texbin"))
 
+(after! rustic
+  (define-key rustic-mode-map (kbd "C-c C-c C-x C-x") 'rustic-cargo-test-rerun))
+
 (use-package! wakatime-mode
   :when (file-exists-p "~/.wakatime.cfg")
   :init
