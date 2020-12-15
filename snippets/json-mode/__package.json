@@ -16,13 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xuyizhe/${7:package-name}.git",
+    "url": "git+https://github.com/`user-full-name`/${7:package-name}.git",
     "directory": ""
   },
   "bugs": {
-    "url": "https://github.com/xuyizhe/${8:package-name}/issues"
+    "url": "https://github.com/`user-full-name`/${8:package-name}/issues"
   },
-  "homepage": "https://github.com/xuyizhe/${9:package-name}#readme",
+  "homepage": "https://github.com/`user-full-name`/${9:package-name}#readme",
   "scripts": {
     $0
   },
