@@ -1,0 +1,34 @@
+# -*- restclient -*-
+
+:default-server = http://localhost:4000
+:default-headers = <<
+Authorization: bearer 319854857345898457457
+Content-Type: application/json
+User-Agent: Emacs Restclient
+Accept: application/json
+# Accept-Encoding: compress, gzip
+#
+
+#
+GET :default-server/users
+:default-headers
+-> jq-set-var :first-user-id .users[0].id
+
+#
+:user-id = 2
+:some-text := (format "%s %s %d" '`user-full-name` (md5 "`user-mail-address`") (+ 100 1))
+
+PUT :default-server/users/:user-id
+:default-headers
+{
+    "name": ":some-text"
+}
+
+#
+POST :default-server/users/:user-id
+:default-headers
+{ "name": "`user-full-name`"}
+
+#
+DELETE :default-server/users/:first-user-id
+:default-headers

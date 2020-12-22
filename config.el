@@ -28,6 +28,7 @@
   (add-to-list '+lookup-provider-url-alist '("Zhihu" "https://www.zhihu.com/search?type=content&q=%s")))
 
 (when (featurep! :editor file-templates)
+  (add-to-list '+file-templates-alist '(restclient-mode))
   (set-file-template! "/tsconfig\\.json$" :trigger "__tsconfig.json" :mode 'json-mode)
   (set-file-template! "/lerna\\.json$" :trigger "__lerna.json" :mode 'json-mode)
   (set-file-template! "/webdriver\\.json$" :trigger "__webdriver.json" :mode 'json-mode))
@@ -108,6 +109,9 @@
         '("--trailing-comma" "es5"
           "--single-quote" "true"
           "--arrow-parens" "always")))
+
+(after! restclient
+  (require 'restclient-jq))
 
 (use-package! dap-mode
   :when (and (featurep! :tools debugger +lsp) (featurep! :lang rust +lsp))

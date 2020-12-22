@@ -62,19 +62,24 @@ install_rust() {
 install_web() {
 	echo "Installing dependencies for web..."
 	brew install tidy-html5
-	npm install -g \
-		stylelint \
-		prettier \
-		js-beautify \
-		eslint \
-		typescript \
-		tslint \
-		vscode-html-languageservice \
-		vscode-css-languageservice \
-		typescript-language-server \
-		vls \
-		svelte-language-server \
-		prettier-plugin-svelte
+
+	npm install -g typescript
+	npm install -g eslint
+	# npm install -g tslint
+	npm install -g typescript-eslint
+	npm install -g prettier
+	# npm install -g prettier-plugin-svelte
+
+	# web-mode
+	npm install -g stylelint
+	npm install -g js-beautify
+
+	# lsp
+	npm install -g vscode-html-languageserver-bin
+	npm install -g vscode-css-languageserver-bin
+	npm install -g typescript-language-server
+	# npm install -g vls
+	# npm install -g svelte-language-server
 }
 
 install_solidity() {
