@@ -3,7 +3,7 @@
 (setq user-full-name "xuyizhe"
       user-mail-address "barrenbass@gmail.com"
       display-line-numbers-type nil
-      doom-theme 'doom-one-light
+      doom-theme 'doom-one
       company-idle-delay nil
       lsp-ui-sideline-enable nil
       lsp-enable-symbol-highlighting nil)
@@ -14,10 +14,19 @@
 
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
+(blink-cursor-mode)
+
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+
+(when (featurep! :checkers spell +aspell)
+  (setq ispell-extra-args
+        '("--sug-mode=ultra"
+          "--lang=en_US"
+          "--run-together"))
+  (ispell-change-dictionary "en_US" t))
 
 (when (featurep! :tools lookup)
   (add-to-list '+lookup-provider-url-alist '("Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
@@ -37,6 +46,9 @@
   (setq-default TeX-engine 'xetex)
   (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
   (add-to-list 'exec-path "/Library/TeX/texbin"))
+
+(use-package! valign
+  :hook (org-mode . valign-mode))
 
 (after! rustic
   (define-key rustic-mode-map (kbd "C-c C-c C-x C-x") 'rustic-cargo-test-rerun))

@@ -9,6 +9,7 @@
 ;; (package! format-all :pin "18b97bbcb9")
 
 (package! xah-fly-keys)
+(package! valign)
 (when (featurep! :editor format +prettier-force)
   (package! prettier-js))
 (when (featurep! :lang rest)
