@@ -2,6 +2,7 @@
 set -euo pipefail
 
 main() {
+	install_spell
 	install_node
 	install_sh
 	install_json
