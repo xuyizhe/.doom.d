@@ -26,6 +26,11 @@ install_spell() {
 	brew install aspell
 }
 
+install_clang() {
+	echo "Installing dependencies for clang..."
+	brew install clang-format
+}
+
 install_node() {
 	echo "Installing dependencies for nodejs..."
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash

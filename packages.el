@@ -10,6 +10,7 @@
 
 (package! xah-fly-keys)
 (package! valign)
+(package! protobuf-mode)
 (when (featurep! :editor format +prettier-force)
   (package! prettier-js))
 (when (featurep! :lang rest)
