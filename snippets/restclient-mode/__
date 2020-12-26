@@ -2,16 +2,14 @@
 
 :default-server = http://localhost:4000
 :default-headers = <<
-Authorization: bearer 319854857345898457457
-Content-Type: application/json
-User-Agent: Emacs Restclient
-Accept: application/json
-# Accept-Encoding: compress, gzip
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36
 #
 
 #
 GET :default-server/users
 :default-headers
+# Content-Type: application/json
+# Accept-Encoding: compress, gzip
 -> jq-set-var :first-user-id .users[0].id
 
 #
@@ -20,6 +18,8 @@ GET :default-server/users
 
 PUT :default-server/users/:user-id
 :default-headers
+# Authorization: bearer 319854857345898457457
+# Accept: application/json
 {
     "name": ":some-text"
 }
