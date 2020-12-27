@@ -6,28 +6,32 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
 #
 
 #
+:username = `user-full-name`
+:some-text := (format "%s %s %d" '`user-full-name` (md5 "`user-mail-address`") (+ 100 1))
+PUT :default-server/users
+:default-headers
+{
+    "name": ":username",
+    "desc": ":some-text",
+}
+
+#
 GET :default-server/users
 :default-headers
 # Content-Type: application/json
 # Accept-Encoding: compress, gzip
 -> jq-set-var :first-user-id .users[0].id
 
-#
-:user-id = 2
-:some-text := (format "%s %s %d" '`user-full-name` (md5 "`user-mail-address`") (+ 100 1))
 
-PUT :default-server/users/:user-id
+#
+POST :default-server/users/:first-user-id
 :default-headers
 # Authorization: bearer 319854857345898457457
 # Accept: application/json
 {
-    "name": ":some-text"
+    "name": "`user-full-name`",
+    "desc": "`user-mail-address`",
 }
-
-#
-POST :default-server/users/:user-id
-:default-headers
-{ "name": "`user-full-name`"}
 
 #
 DELETE :default-server/users/:first-user-id
