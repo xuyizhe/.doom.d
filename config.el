@@ -55,6 +55,9 @@
 (after! rustic
   (define-key rustic-mode-map (kbd "C-c C-c C-x C-x") 'rustic-cargo-test-rerun))
 
+(after! sql
+  (setq sql-mysql-login-params (append sql-mysql-login-params '(port))))
+
 (use-package! wakatime-mode
   :when (file-exists-p "~/.wakatime.cfg")
   :init
