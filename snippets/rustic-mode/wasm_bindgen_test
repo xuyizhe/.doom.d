@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: wasm-bindgen-test-template
-# key: wbtt
-# key: wbtt
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: wasm_bindgen_test
+# key: wbt
 # condition: t
 # --
 #![cfg(target_arch = "wasm32")]

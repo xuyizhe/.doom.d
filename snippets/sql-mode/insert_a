@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # contributor: xuyizhe <barrenbass@gmail.com>
-# name: rule
-# key: r
+# name: insert-a
+# key: sia
 # condition: t
 # --
-\rule{${1:width}}{${2:thickness}}$0
+INSERT INTO ${1:table} VALUES ($0);

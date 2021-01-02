@@ -12,14 +12,28 @@
       org-agenda-files '("~/org/gtd")
       org-noter-notes-search-path '("~/org/notes/"))
 
+(setq sql-postgres-login-params
+      `((user :default ,(user-login-name))
+        (database :default "postgres")
+        (server :default "localhost")
+        (port :default 5432)))
+
+(setq sql-mysql-login-params
+      `((user :default ,(user-login-name))
+        (database :default "mysql")
+        (server :default "localhost")
+        (port :default 3306)))
+
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
 (blink-cursor-mode)
 
-(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
-
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+
+(add-hook 'sql-interactive-mode-hook #'yas-minor-mode)
 
 (when (featurep! :checkers spell +aspell)
   (setq ispell-extra-args
@@ -54,9 +68,6 @@
 
 (after! rustic
   (define-key rustic-mode-map (kbd "C-c C-c C-x C-x") 'rustic-cargo-test-rerun))
-
-(after! sql
-  (setq sql-mysql-login-params (append sql-mysql-login-params '(port))))
 
 (use-package! wakatime-mode
   :when (file-exists-p "~/.wakatime.cfg")

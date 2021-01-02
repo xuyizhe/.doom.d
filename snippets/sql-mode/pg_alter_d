@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # contributor: xuyizhe <barrenbass@gmail.com>
-# name: rule
-# key: r
+# name: pg-alter-d
+# key: pad
 # condition: t
 # --
-\rule{${1:width}}{${2:thickness}}$0
+ALTER TABLE ${1:table} DROP COLUMN $0 ${2:CASCADE};

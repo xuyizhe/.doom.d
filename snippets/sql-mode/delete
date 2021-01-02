@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # contributor: xuyizhe <barrenbass@gmail.com>
-# name: rule
-# key: r
+# name: delete
+# key: sd
 # condition: t
 # --
-\rule{${1:width}}{${2:thickness}}$0
+DELETE FROM ${1:table} WHERE ${2:id} = $0;

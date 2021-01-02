@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: pg-alter-s
+# key: pas
+# condition: t
+# --
+ALTER TABLE ${1:table} ALTER COLUMN ${2:column} SET ${3:DEFAULT} ${0:''};

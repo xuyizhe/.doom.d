@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: println!_fmt
-# key: pf
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: println_fmt
 # key: pf
 # condition: t
 # --

@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # contributor: xuyizhe <barrenbass@gmail.com>
-# name: rule
-# key: r
+# name: update-a
+# key: sua
 # condition: t
 # --
-\rule{${1:width}}{${2:thickness}}$0
+UPDATE ${1:table} SET ${2:key} = $0;

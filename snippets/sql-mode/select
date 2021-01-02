@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: select
+# key: ss
+# condition: t
+# --
+SELECT ${1:*} FROM $0;

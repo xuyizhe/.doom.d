@@ -1,7 +1,9 @@
 # -*- mode: snippet -*-
 # contributor: xuyizhe <barrenbass@gmail.com>
-# name: rule
-# key: r
+# name: create
+# key: sc
 # condition: t
 # --
-\rule{${1:width}}{${2:thickness}}$0
+CREATE TABLE ${1:table} (
+$0
+);

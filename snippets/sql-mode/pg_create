@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: pg-create
+# key: pc
+# condition: t
+# --
+CREATE TABLE tags (
+       id ${1:bigint} GENERATED ALWAYS AS IDENTITY,
+       $0,
+       PRIMARY KEY (id)
+);
