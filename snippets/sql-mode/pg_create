@@ -4,8 +4,8 @@
 # key: pc
 # condition: t
 # --
-CREATE TABLE tags (
-       id ${1:bigint} GENERATED ALWAYS AS IDENTITY,
+CREATE TABLE ${1:table} (
+       id ${2:bigint} GENERATED ALWAYS AS IDENTITY,
        $0,
        PRIMARY KEY (id)
 );

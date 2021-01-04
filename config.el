@@ -4,7 +4,7 @@
       user-mail-address "barrenbass@gmail.com"
       display-line-numbers-type nil
       doom-theme 'doom-one
-      company-idle-delay nil
+      company-idle-delay 0
       lsp-ui-sideline-enable nil
       lsp-enable-symbol-highlighting nil)
 
