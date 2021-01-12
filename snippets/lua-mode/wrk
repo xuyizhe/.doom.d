@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: wrk
+# key: wrk
+# condition: t
+# --
+wrk.method = "${1:POST}"
+wrk.body = '{"${2:key}": "${3:value}"}'
+-- wrk.body = "${4:key}=${5:value}"
+wrk.headers["Content-Type"] = "application/json"
+$0

@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: ghz
+# key: ghz
+# condition: t
+# --
+
+GRPC_BENCHMARK_DURATION=${GRPC_BENCHMARK_DURATION:-"${1:10s}"}
+GRPC_CLIENT_CONNECTIONS=${GRPC_CLIENT_CONNECTIONS:-"${2:5}"}
+GRPC_CLIENT_CONCURRENCY=${GRPC_CLIENT_CONCURRENCY:-"${3:50}"}
+GRPC_CLIENT_QPS=${GRPC_CLIENT_QPS:-"0"}
+GRPC_CLIENT_QPS=$((GRPC_CLIENT_QPS / GRPC_CLIENT_CONCURRENCY))
+
+ghz --insecure \
+	--proto ${4:helloworld.proto} \
+	--call ${5:helloworld.Greeter.SayHello} \
+	--concurrency="${GRPC_CLIENT_CONCURRENCY}" \
+	--connections="${GRPC_CLIENT_CONNECTIONS}" \
+	\
+	--duration "${GRPC_BENCHMARK_DURATION}" \
+	-d '{"${6:key}": "${7:value}"}' localhost:50051 # --qps="${GRPC_CLIENT_QPS}" \
+
