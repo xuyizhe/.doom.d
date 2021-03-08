@@ -1,0 +1,37 @@
+# -*- mode: snippet -*-
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: error_template
+# key: errt
+# condition: t
+# --
+
+use ${1:crate::error::Error as SubError};
+
+#[allow(dead_code)]
+#[derive(Debug)]
+pub enum Error {
+    ${2:Sub(SubError)}$0
+}
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            Error::${3:Sub}(ref e) => e.fmt(f),
+        }
+    }
+}
+
+impl std::error::Error for Error {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match *self {
+            Error::${4:Sub}(ref e) => Some(e),
+        }
+    }
+}
+
+impl From<${5:SubError}> for Error {
+    fn from(e: ${6:SubError}) -> Error {
+        Error::${7:Sub}(e)
+    }
+}
+
