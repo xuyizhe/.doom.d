@@ -4,7 +4,8 @@
 # key: errt
 # condition: t
 # --
-
+use std::error;
+use std::fmt;
 use ${1:crate::error::Error as SubError};
 
 #[allow(dead_code)]
@@ -13,7 +14,7 @@ pub enum Error {
     ${2:Sub(SubError)}$0
 }
 
-impl std::fmt::Display for Error {
+impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Error::${3:Sub}(ref e) => e.fmt(f),
@@ -21,8 +22,8 @@ impl std::fmt::Display for Error {
     }
 }
 
-impl std::error::Error for Error {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+impl error::Error for Error {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         match *self {
             Error::${4:Sub}(ref e) => Some(e),
         }
