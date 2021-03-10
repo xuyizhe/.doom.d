@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# contributor: xuyizhe <barrenbass@gmail.com>
+# name: doc_fn_async
+# key: docfa
+# condition: t
+# --
+
+/// ${1:\`crate::mod::fn() -> i32\` description}
+///
+/// # Examples
+///
+/// Basic usage
+///
+/// \`\`\`RUST
+/// ${2:use crate::error::Error;
+/// use crate::mod::fn;}
+///
+/// #[${3:actix_rt::main}]
+/// async fn main() -> Result<(), Error>{
+///     ${0:let result = fn().await?;
+///     assert!(result, 1);
+///     Ok(())}
+/// }
+/// \`\`\`
