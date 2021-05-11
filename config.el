@@ -28,10 +28,10 @@
 
 (blink-cursor-mode)
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+;; (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 (add-hook 'sql-interactive-mode-hook #'yas-minor-mode)
 
