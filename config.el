@@ -4,9 +4,15 @@
       user-mail-address "barrenbass@gmail.com"
       display-line-numbers-type nil
       doom-theme 'doom-one
-      company-idle-delay 0
-      lsp-ui-sideline-enable nil
-      lsp-enable-symbol-highlighting nil)
+      doom-font (font-spec :family "JetBrains Mono" :size 15 :weight 'Light)
+      doom-variable-pitch-font (font-spec :family "Noto Serif" :size 13)
+      ivy-posframe-font (font-spec :family "JetBrains Mono" :size 14)
+      company-idle-delay 0)
+
+(setq lsp-ui-sideline-enable nil
+      lsp-enable-symbol-highlighting nil
+      lsp-rust-analyzer-cargo-load-out-dirs-from-check t
+      lsp-rust-analyzer-proc-macro-enable t)
 
 (setq org-directory "~/org/"
       org-agenda-files '("~/org/gtd")
@@ -28,7 +34,7 @@
 
 (blink-cursor-mode)
 
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 ;; (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
@@ -95,6 +101,25 @@
   (define-key xah-fly-shared-map (kbd "C-. d w") #'dap-ui-show-many-windows)
   (define-key xah-fly-shared-map (kbd "C-. d t") #'dap-breakpoint-toggle)
   (xah-fly-keys 1))
+
+;; Note: https://github.com/xahlee/xah-fly-keys/commit/e58707a0edbfcf38d1ee2db73c961c8572ccd4a5
+(defun xah-select-text-in-quote ()
+  "Select text between the nearest left and right delimiters.
+Delimiters here includes the following chars: '\"`<>(){}[]“”‘’‹›«»「」『』【】〖〗《》〈〉〔〕（）
+This command select between any bracket chars, not the inner text of a bracket. For example, if text is
+ (a(b)c▮)
+ the selected char is “c”, not “a(b)c”.
+URL `http://ergoemacs.org/emacs/modernization_mark-word.html'
+Version 2020-03-11"
+  (interactive)
+  (let (
+        ($skipChars "^'\"`<>(){}[]“”‘’‹›«»「」『』【】〖〗《》〈〉〔〕（）〘〙")
+        $p1
+        )
+    (skip-chars-backward $skipChars)
+    (setq $p1 (point))
+    (skip-chars-forward $skipChars)
+    (set-mark $p1)))
 
 (after! web-mode
   (when (featurep! :lang web +tty)
