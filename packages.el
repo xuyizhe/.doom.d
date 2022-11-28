@@ -8,9 +8,12 @@
 ;; Temporarily support formatting BASH/TOML/.., untested compatibility
 ;; (package! format-all :pin "18b97bbcb9")
 
+(package! command-log-mode)
 (package! xah-fly-keys)
 (package! valign)
 (package! protobuf-mode)
+(package! apheleia)
+;; (package! prettier)
 (when (featurep! :editor format +prettier-force)
   (package! prettier-js))
 (when (featurep! :lang rest)
@@ -21,3 +24,10 @@
 (package! youdao-dictionary)
 (when (file-exists-p "~/.wakatime.cfg")
   (package! wakatime-mode))
+
+(when (modulep! :lang solidity)
+  (package! solidity-mode :pin "929ce58ff0d42cf1109f9fb0655c787ee58cc2da"))
+(when (modulep! :completion company)
+  (package! company-solidity))
+(when (modulep! :checkers syntax)
+  (package! solidity-flycheck :pin "929ce58ff0d42cf1109f9fb0655c787ee58cc2da"))

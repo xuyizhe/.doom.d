@@ -2,11 +2,11 @@
 
 (setq user-full-name "xuyizhe"
       user-mail-address "barrenbass@gmail.com"
-      display-line-numbers-type nil
+      display-line-numbers-type t
       doom-theme 'doom-one
-      doom-font (font-spec :family "JetBrains Mono" :size 15 :weight 'Light)
-      doom-variable-pitch-font (font-spec :family "Noto Serif" :size 13)
-      ivy-posframe-font (font-spec :family "JetBrains Mono" :size 14)
+      doom-font (font-spec :family "JetBrains Mono" :size 15 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 13)
+      ;; ivy-posframe-font (font-spec :family "JetBrainsMono" :size 14)
       company-idle-delay 0)
 
 (setq lsp-ui-sideline-enable nil
@@ -30,9 +30,23 @@
         (server :default "localhost")
         (port :default 3306)))
 
+
+;; https://github.com/doomemacs/doomemacs/issues/4106#issuecomment-713205419
+(setq +format-on-save-enabled-modes
+      '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
+            sql-mode         ; sqlformat is currently broken
+            tex-mode         ; latexindent is broken
+            web-mode
+            latex-mode))
+
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
+;; https://github.com/doomemacs/doomemacs/issues/4106#issuecomment-715895606
+;; (setq-hook! 'web-mode-hook +format-with 'prettier-prettify)
+
 (blink-cursor-mode)
+
+(apheleia-global-mode +1)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
@@ -41,14 +55,14 @@
 
 (add-hook 'sql-interactive-mode-hook #'yas-minor-mode)
 
-(when (featurep! :checkers spell +aspell)
+(when (modulep! :checkers spell +aspell)
   (setq ispell-extra-args
         '("--sug-mode=ultra"
           "--lang=en_US"
           "--run-together"))
   (ispell-change-dictionary "en_US" t))
 
-(when (featurep! :tools lookup)
+(when (modulep! :tools lookup)
   (add-to-list '+lookup-provider-url-alist '("Actix-web issues" "https://github.com/actix/actix-web/issues?q=is%%3Aissue+%s"))
   (add-to-list '+lookup-provider-url-alist '("Docker" "https://docs.docker.com/search/?q=%s"))
   (add-to-list '+lookup-provider-url-alist '("Google" "https://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"))
@@ -58,13 +72,13 @@
   (add-to-list '+lookup-provider-url-alist '("NPM" "https://www.npmjs.com/search?q=%s"))
   (add-to-list '+lookup-provider-url-alist '("Zhihu" "https://www.zhihu.com/search?type=content&q=%s")))
 
-(when (featurep! :editor file-templates)
+(when (modulep! :editor file-templates)
   (add-to-list '+file-templates-alist '(restclient-mode))
   (set-file-template! "/tsconfig\\.json$" :trigger "__tsconfig.json" :mode 'json-mode)
   (set-file-template! "/lerna\\.json$" :trigger "__lerna.json" :mode 'json-mode)
   (set-file-template! "/webdriver\\.json$" :trigger "__webdriver.json" :mode 'json-mode))
 
-(when (featurep! :lang latex)
+(when (modulep! :lang latex)
   (setq-default TeX-engine 'xetex)
   (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
   (add-to-list 'exec-path "/Library/TeX/texbin"))
@@ -80,12 +94,12 @@
   :init
   (global-wakatime-mode))
 
-(use-package! xah-fly-keys
+ (use-package! xah-fly-keys
   :init
   (setq xah-fly-use-control-key nil)
+  (setq xah-fly-use-meta-key nil)
   (add-hook 'yas-before-expand-snippet-hook 'xah-fly-insert-mode-activate)
   :config
-  (xah-fly-keys-set-layout "qwerty")
   (define-key xah-fly-shared-map (kbd "C-. l d") #'lsp-ui-peek-find-definitions)
   (define-key xah-fly-shared-map (kbd "C-. l r") #'lsp-ui-peek-find-references)
   (define-key xah-fly-shared-map (kbd "C-. y y") #'youdao-dictionary-search-at-point-posframe)
@@ -100,6 +114,7 @@
   (define-key xah-fly-shared-map (kbd "C-. d k") #'dap-delete-session)
   (define-key xah-fly-shared-map (kbd "C-. d w") #'dap-ui-show-many-windows)
   (define-key xah-fly-shared-map (kbd "C-. d t") #'dap-breakpoint-toggle)
+  (xah-fly-keys-set-layout "qwerty")
   (xah-fly-keys 1))
 
 ;; Note: https://github.com/xahlee/xah-fly-keys/commit/e58707a0edbfcf38d1ee2db73c961c8572ccd4a5
@@ -122,7 +137,7 @@ Version 2020-03-11"
     (set-mark $p1)))
 
 (after! web-mode
-  (when (featurep! :lang web +tty)
+  (when (modulep! :lang web +tty)
     (setq web-mode-enable-auto-closing t
           web-mode-enable-auto-pairing t))
   (setq web-mode-markup-indent-offset 2)
@@ -148,12 +163,12 @@ Version 2020-03-11"
   (setq pug-tab-width 2))
 
 (use-package! elm-mode
-  :when (featurep! :lang elm)
+  :when (modulep! :lang elm)
   :config
   (setq elm-indent-offset 2))
 
 (use-package! prettier-js
-  :when (featurep! :editor format +prettier-force)
+  :when (modulep! :editor format +prettier-force)
   :defer t
   :hook ((web-mode css-mode json-mode js2-mode typescript-mode) . prettier-js-mode)
   :config
@@ -167,7 +182,7 @@ Version 2020-03-11"
   (require 'restclient-jq))
 
 (use-package! dap-mode
-  :when (and (featurep! :tools debugger +lsp) (featurep! :lang rust +lsp))
+  :when (and (modulep! :tools debugger +lsp) (modulep! :lang rust +lsp))
   :config
   (let (($path "~/.vscode/extensions/ms-vscode.cpptools-1.1.1"))
     (require 'dap-utils)
