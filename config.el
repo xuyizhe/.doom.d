@@ -178,6 +178,19 @@ Version 2020-03-11"
           "--single-quote" "true"
           "--arrow-parens" "always")))
 
+(use-package! js-doc
+  :when (modulep! :lang javascript)
+  :hook ((js2-mode rjsx-mode typescript-mode) .
+         (lambda ()
+           (define-key js2-mode-map "\C-cdf" 'js-doc-insert-function-doc))))
+
+(use-package! tree-sitter
+  :when (modulep! :lang javascript +tree-sitter)
+  :hook ((js2-mode rjsx-mode typescript-mode) .
+         (lambda ()
+           (tree-sitter-mode)
+           (define-key js2-mode-map "\C-cdd" 'jsdoc))))
+
 (after! restclient
   (require 'restclient-jq))
 

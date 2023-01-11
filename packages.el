@@ -13,10 +13,18 @@
 (package! valign)
 (package! protobuf-mode)
 (package! apheleia)
+
 ;; (package! prettier)
-(when (featurep! :editor format +prettier-force)
+(when (modulep! :editor format +prettier-force)
   (package! prettier-js))
-(when (featurep! :lang rest)
+(package! js-doc)
+(when (modulep! :tools tree-sitter)
+  (package! jsdoc :pin "2e7c02ff2dc422bc21c405bd90a7092c2f599630" :recipe
+    (:host github
+     :repo "isamert/jsdoc.el"
+     :files ("jsdoc.el"))))
+
+(when (modulep! :lang rest)
   (package! restclient-jq :pin "abc307b965bf6720bc466281f2e204cd5ce37dc3" :recipe
     (:host github
      :repo "pashky/restclient.el"
