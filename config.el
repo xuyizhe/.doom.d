@@ -137,6 +137,8 @@ Version 2020-03-11"
     (set-mark $p1)))
 
 (after! web-mode
+  (when (modulep! :editor fold)
+    (define-key web-mode-map (kbd "C-c C-e C-f") 'web-mode-fold-or-unfold))
   (when (modulep! :lang web +tty)
     (setq web-mode-enable-auto-closing t
           web-mode-enable-auto-pairing t))
@@ -156,6 +158,11 @@ Version 2020-03-11"
 
 (after! typescript-mode
   (setq typescript-indent-level 2))
+
+(when (modulep! :lang javascript)
+  (def-project-mode! +web-vue-mode
+    :modes '(+javascript-npm-mode)
+    :when (+javascript-npm-dep-p '(or vue quasar))))
 
 (use-package! pug-mode
   :mode "\\.tag\\'"
@@ -178,18 +185,14 @@ Version 2020-03-11"
           "--single-quote" "true"
           "--arrow-parens" "always")))
 
-(use-package! js-doc
-  :when (modulep! :lang javascript)
-  :hook ((js2-mode rjsx-mode typescript-mode) .
-         (lambda ()
-           (define-key js2-mode-map "\C-cdf" 'js-doc-insert-function-doc))))
-
-(use-package! tree-sitter
-  :when (modulep! :lang javascript +tree-sitter)
-  :hook ((js2-mode rjsx-mode typescript-mode) .
-         (lambda ()
-           (tree-sitter-mode)
-           (define-key js2-mode-map "\C-cdd" 'jsdoc))))
+(defun define-js-doc-keys (m)
+  (define-key m "\C-cdd" 'jsdoc)
+  (define-key m "\C-cdf" 'js-doc-insert-function-doc))
+(add-hook 'web-mode-hook #'(lambda () (define-js-doc-keys web-mode-map)))
+(add-hook 'js2-mode-hook #'(lambda () (define-js-doc-keys js2-mode-map)))
+(add-hook 'rjsx-mode-hook #'(lambda () (define-js-doc-keys rjsx-mode-map)))
+(add-hook 'typescript-mode-hook #'(lambda () (define-js-doc-keys typescript-mode-map)))
+(add-hook 'typescript-tsx-mode-hook #'(lambda () (define-js-doc-keys typescript-tsx-mode-map)))
 
 (after! restclient
   (require 'restclient-jq))
