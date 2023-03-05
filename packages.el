@@ -11,11 +11,10 @@
 (package! command-log-mode)
 (package! xah-fly-keys)
 (package! valign)
-(package! protobuf-mode)
+;; (package! protobuf-mode)
 (package! apheleia)
-
-;; (package! prettier)
-(when (modulep! :editor format +prettier-force)
+(package! prettier)
+(when (modulep! :editor format +prettier-deprecated)
   (package! prettier-js))
 (package! js-doc)
 (when (modulep! :tools tree-sitter)
@@ -23,13 +22,13 @@
     (:host github
      :repo "isamert/jsdoc.el"
      :files ("jsdoc.el"))))
-
 (when (modulep! :lang rest)
   (package! restclient-jq :pin "abc307b965bf6720bc466281f2e204cd5ce37dc3" :recipe
     (:host github
      :repo "pashky/restclient.el"
      :files ("restclient-jq.el"))))
-(package! youdao-dictionary)
+(package! go-translate)
+;; (package! youdao-dictionary)
 (when (file-exists-p "~/.wakatime.cfg")
   (package! wakatime-mode))
 

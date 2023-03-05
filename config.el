@@ -30,7 +30,6 @@
         (server :default "localhost")
         (port :default 3306)))
 
-
 ;; https://github.com/doomemacs/doomemacs/issues/4106#issuecomment-713205419
 (setq +format-on-save-enabled-modes
       '(not emacs-lisp-mode  ; elisp's mechanisms are good enough
@@ -41,19 +40,42 @@
 
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
 
-;; https://github.com/doomemacs/doomemacs/issues/4106#issuecomment-715895606
-;; (setq-hook! 'web-mode-hook +format-with 'prettier-prettify)
+(setq gts-translate-list '(("en" "zh")))
 
 (blink-cursor-mode)
 
+;; formatter
 (apheleia-global-mode +1)
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(global-set-key (kbd "C-c C-t") 'gts-do-translate)
+
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'initial-frame-alist '(top . 0))
+;; (add-to-list 'initial-frame-alist '(left . 100))
+;; (add-to-list 'initial-frame-alist '(width . 120))
+;; (add-to-list 'initial-frame-alist '(fullscreen . fullheight))
+;; (add-to-list 'default-frame-alist '(width . 120))
+;; (add-to-list 'default-frame-alist '(fullscreen . fullheight))
 
 ;; (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 (add-hook 'sql-interactive-mode-hook #'yas-minor-mode)
+
+;; https://github.com/doomemacs/doomemacs/issues/4106#issuecomment-715895606
+(setq-hook! 'web-mode-hook +format-with 'prettier-prettify)
+;; (add-hook 'after-init-hook #'global-prettier-mode)
+
+;; https://zenn.dev/hyakt/articles/5c947cc22c4bfa
+;; https://emacs-china.org/t/volar-eglot/21255
+(setq-default eglot-events-buffer-size 0)
+(define-derived-mode vue-mode web-mode "Vue")
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+(add-hook 'vue-mode-hook 'eglot-ensure)
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '(vue-mode . ("vue-language-server" "--stdio"
+                                                    :initializationOptions
+                                                    (:typescript (:tsdk "node_modules/typescript/lib"))))))
 
 (when (modulep! :checkers spell +aspell)
   (setq ispell-extra-args
@@ -175,9 +197,9 @@ Version 2020-03-11"
   (setq elm-indent-offset 2))
 
 (use-package! prettier-js
-  :when (modulep! :editor format +prettier-force)
+  :when (modulep! :editor format +prettier-deprecated)
   :defer t
-  :hook ((web-mode css-mode json-mode js2-mode typescript-mode) . prettier-js-mode)
+  :hook ((web-mode css-mode json-mode js2-mode typescript-mode vue-mode) . prettier-js-mode)
   :config
   (setq prettier-js-show-errors "echo")
   (setq prettier-js-args
@@ -238,9 +260,9 @@ Version 2020-03-11"
            :program "${workspaceFolder}/ replace with your binary"
            :cwd "${workspaceFolder}"))))
 
-(after! youdao-dictionary
-  (setq url-automatic-caching t)
-  (setq youdao-dictionary-search-history-file "~/.youdao"))
+;; (after! youdao-dictionary
+;;   (setq url-automatic-caching t)
+;;   (setq youdao-dictionary-search-history-file "~/.youdao"))
 
 (after! racer
   (setq racer-rust-src-path
