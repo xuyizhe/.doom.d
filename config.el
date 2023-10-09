@@ -3,9 +3,9 @@
 (setq user-full-name "xuyizhe"
       user-mail-address "barrenbass@gmail.com"
       display-line-numbers-type t
-      doom-theme 'doom-one
-      doom-font (font-spec :family "JetBrains Mono" :size 15 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 13)
+      doom-theme 'doom-solarized-dark
+      doom-font (font-spec :family "JetBrains Mono" :size 18 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 17)
       ;; ivy-posframe-font (font-spec :family "JetBrainsMono" :size 14)
       company-idle-delay 0)
 
@@ -38,8 +38,10 @@
             web-mode
             latex-mode))
 
+(setq eldoc-idle-delay 0.75)
+;; (setq company-idle-delay 0.75)
+(setq flymake-no-changes-timeout 0.5)
 (setq flycheck-solidity-solium-soliumrcfile "~/.soliumrc.json")
-
 (setq gts-translate-list '(("en" "zh")))
 
 (blink-cursor-mode)
@@ -51,11 +53,13 @@
 
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; (add-to-list 'initial-frame-alist '(top . 0))
-;; (add-to-list 'initial-frame-alist '(left . 100))
+;; (add-to-list 'initial-frame-alist '(top . 50))
+;; (add-to-list 'initial-frame-alist '(left . 200))
 ;; (add-to-list 'initial-frame-alist '(width . 120))
+;; (add-to-list 'initial-frame-alist '(height . 50))
 ;; (add-to-list 'initial-frame-alist '(fullscreen . fullheight))
 ;; (add-to-list 'default-frame-alist '(width . 120))
+;; (add-to-list 'default-frame-alist '(height . 50))
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullheight))
 
 ;; (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
